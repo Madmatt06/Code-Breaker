@@ -139,6 +139,26 @@ void getSetting(int &length, bool &duplicate, bool &statTest) {
 char* genCode(const int length, const bool duplicate, const bool statTest) {
     char* code = new char[length];
     int numColor = statTest? 10:8;  // Quick way to add the ability to use 0-9 instead of the colors
+    if(statTest) {
+        cout << "Would you like to input a code to test? (y/N): ";
+        char answer;
+        cin >> answer;
+        if(tolower(answer == 'y')) {
+            cout << "Enter a random code (4 digits long): ";
+            bool valid = true;
+            do {
+                for(int i = 0; i < 4; i++) {
+                    cin >> answer;
+                    if(!isdigit(answer)) {
+                        valid = false;
+                    }
+                    code[i] = answer;
+                }
+                if(!valid) cout << "Invalid code entered: ";
+            } while(!valid);
+            return code;
+        }
+    }
     // The array below allows the program to keep track of what colors have been used incase it needs to not have duplicates.
     int options[8] = {RED, GREEN, BLUE, YELLOW, BROWN, ORANGE, BLACK, WHITE};
     for(int i = 0; i < length; i++) {
